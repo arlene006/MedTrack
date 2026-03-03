@@ -1,0 +1,210 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    .hero-section {
+        padding: 8rem 2rem 4rem;
+        text-align: center;
+        background: radial-gradient(circle at top right, rgba(0, 206, 209, 0.1), transparent 40%),
+            radial-gradient(circle at bottom left, rgba(0, 128, 128, 0.1), transparent 40%);
+    }
+
+    .hero-title {
+        font-size: 4.5rem;
+        font-weight: 800;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: var(--text-gray);
+        max-width: 800px;
+        margin: 0 auto 3rem;
+        line-height: 1.6;
+    }
+
+    .feature-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        padding: 4rem 2rem;
+    }
+
+    .feature-card {
+        padding: 2.5rem;
+        transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-10px);
+    }
+
+    .icon-box {
+        width: 60px;
+        height: 60px;
+        background: var(--accent-gradient);
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+        font-size: 1.5rem;
+        color: white;
+    }
+
+    .how-it-works {
+        padding: 6rem 2rem;
+        text-align: center;
+    }
+
+    .step-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1.5rem;
+        margin-top: 4rem;
+    }
+
+    .step-item {
+        position: relative;
+    }
+
+    .step-number {
+        font-size: 3rem;
+        font-weight: 900;
+        opacity: 0.1;
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: var(--secondary-color);
+    }
+
+    .role-section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        padding: 4rem 2rem;
+    }
+
+    .role-card {
+        padding: 3rem;
+        border-radius: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    @media (max-width: 768px) {
+        .hero-title {
+            font-size: 3rem;
+        }
+
+        .step-grid,
+        .role-section {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="hero-section fade-in">
+    <h1 class="hero-title">
+        The Next Generation of <br>
+        <span
+            style="background: var(--accent-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Healthcare
+            Cloud</span>
+    </h1>
+    <p class="hero-subtitle">
+        MedTrack is a high-performance management ecosystem built on AWS. We empower doctors to deliver better care and
+        patients to control their health journey with real-time notifications and secure medical history.
+    </p>
+    <div style="display: flex; gap: 1.5rem; justify-content: center;">
+        <a href="{{ url_for('register') }}" class="btn btn-primary" style="padding: 1rem 2.5rem;">Join MedTrack</a>
+        <a href="#features" class="btn" style="padding: 1rem 2.5rem; border: 1px solid var(--glass-border);">Explore
+            Features</a>
+    </div>
+</div>
+
+<div id="features" class="feature-grid">
+    <div class="glass-panel feature-card">
+        <div class="icon-box">☁️</div>
+        <h3>DynamoDB Powered</h3>
+        <p style="color: var(--text-gray);">Hyper-scalable medical record storage with lightning-fast retrieval for
+            patient histories.</p>
+    </div>
+    <div class="glass-panel feature-card">
+        <div class="icon-box">🔔</div>
+        <h3>SNS Notifications</h3>
+        <p style="color: var(--text-gray);">Instant SMS and email alerts for all bookings, cancellations, and diagnosis
+            reports.</p>
+    </div>
+    <div class="glass-panel feature-card">
+        <div class="icon-box">🛡️</div>
+        <h3>IAM Architecture</h3>
+        <p style="color: var(--text-gray);">Mission-critical security using AWS Identity & Access Management for total
+            data privacy.</p>
+    </div>
+</div>
+
+<div class="how-it-works">
+    <h2 style="font-size: 2.5rem;">Streamlined Workflow</h2>
+    <div class="step-grid">
+        <div class="step-item">
+            <span class="step-number">01</span>
+            <h4>Register</h4>
+            <p style="font-size: 0.9rem; color: var(--text-gray);">Secure authentication for patients or providers.</p>
+        </div>
+        <div class="step-item">
+            <span class="step-number">02</span>
+            <h4>Book</h4>
+            <p style="font-size: 0.9rem; color: var(--text-gray);">Instant scheduling with real-time availability.</p>
+        </div>
+        <div class="step-item">
+            <span class="step-number">03</span>
+            <h4>Consult</h4>
+            <p style="font-size: 0.9rem; color: var(--text-gray);">Professional dashboard for medical consultations.</p>
+        </div>
+        <div class="step-item">
+            <span class="step-number">04</span>
+            <h4>Review</h4>
+            <p style="font-size: 0.9rem; color: var(--text-gray);">Access history and reports anywhere, anytime.</p>
+        </div>
+    </div>
+</div>
+
+<div class="role-section">
+    <div class="glass-panel role-card">
+        <div>
+            <h2 style="color: var(--secondary-color); margin-bottom: 1.5rem;">For Patients</h2>
+            <ul style="list-style: none; padding: 0; color: var(--text-gray); display: grid; gap: 1rem;">
+                <li>✓ Easy Appointment Booking</li>
+                <li>✓ Full Medical History Access</li>
+                <li>✓ Instant Confirmation Alerts</li>
+                <li>✓ Secure Personal Health Data</li>
+            </ul>
+        </div>
+        <a href="{{ url_for('register') }}" class="btn btn-primary" style="margin-top: 2rem;">Patient Portal</a>
+    </div>
+    <div class="glass-panel role-card" style="border-color: rgba(0, 128, 128, 0.3);">
+        <div>
+            <h2 style="color: var(--secondary-color); margin-bottom: 1.5rem;">For Professionals</h2>
+            <ul style="list-style: none; padding: 0; color: var(--text-gray); display: grid; gap: 1rem;">
+                <li>✓ Comprehensive Patient History</li>
+                <li>✓ Efficient Diagnosis Submission</li>
+                <li>✓ Modern Schedule Management</li>
+                <li>✓ Multi-role Search Capability</li>
+            </ul>
+        </div>
+        <a href="{{ url_for('login') }}" class="btn"
+            style="margin-top: 2rem; border: 1px solid var(--secondary-color); color: var(--secondary-color);">Doctor
+            Portal</a>
+    </div>
+</div>
+
+<footer style="padding: 4rem 2rem; text-align: center; border-top: 1px solid var(--glass-border); margin-top: 4rem;">
+    <h2 style="color: var(--secondary-color); margin-bottom: 1rem;">MEDTRACK</h2>
+    <p style="color: var(--text-gray); font-size: 0.9rem;">© 2026 MedTrack Healthcare Cloud. Built with AWS Performance
+        & Security.</p>
+</footer>
+
+{% endblock %}

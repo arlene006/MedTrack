@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="fade-in">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 3rem;">
+        <h1>Welcome, <span style="color: var(--secondary-color);">{{ session.get('name') }}</span></h1>
+        <div
+            style="background: rgba(0, 206, 209, 0.1); padding: 0.5rem 1rem; border-radius: 20px; border: 1px solid var(--secondary-color); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">
+            {{ session.get('role') }}
+        </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+        <!-- Appointments Section -->
+        <div class="glass-panel">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h3 style="margin: 0;">Upcoming Appointments</h3>
+                {% if session.get('role') == 'doctor' %}
+                <form action="{{ url_for('dashboard') }}" method="GET" style="display: flex; gap: 0.5rem;">
+                    <input type="text" name="search" placeholder="Search patient..." class="form-input"
+                        style="padding: 0.3rem 0.8rem; font-size: 0.8rem; margin: 0; width: 150px;">
+                    <button type="submit" class="btn" style="padding: 0.3rem 0.8rem; font-size: 0.8rem;">Filter</button>
+                    {% if request.args.get('search') %}
+                    <a href="{{ url_for('dashboard') }}" class="btn"
+                        style="padding: 0.3rem 0.8rem; font-size: 0.8rem; background: rgba(255,0,0,0.1);">X</a>
+                    {% endif %}
+                </form>
+                {% endif %}
+            </div>
+            {% if appointments %}
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                {% for appt in appointments %}
+                <div
+                    style="background: rgba(255,255,255,0.05); padding: 1.5rem; border-radius: 12px; border: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="font-weight: 600; color: var(--secondary-color); margin-bottom: 0.3rem;">
+                            {{ appt.Date }} at {{ appt.Time }}
+                        </div>
+                        <div style="font-size: 0.9rem; color: var(--text-gray);">
+                            {% if session.get('role') == 'patient' %}
+                            Doctor: {{ appt.doctor_email }}
+                            {% else %}
+                            Patient: {{ appt.PatientName }} ({{ appt.patient_email }})
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div style="text-align: right;">
+                        <span
+                            style="background: rgba(0, 128, 128, 0.2); padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.75rem; color: var(--secondary-color); display: block; margin-bottom: 0.5rem;">{{
+                            appt.Status }}</span>
+                        {% if session.get('role') == 'doctor' %}
+                        {% if appt.Status == 'Scheduled' %}
+                        <a href="{{ url_for('submit_diagnosis', appointment_id=appt.appointment_id) }}" class="btn"
+                            style="padding: 0.4rem 0.8rem; font-size: 0.8rem; border: 1px solid var(--secondary-color); color: var(--secondary-color);">Diagnose</a>
+                        {% endif %}
+                        <a href="{{ url_for('medical_history', patient_email=appt.patient_email) }}"
+                            style="display: block; font-size: 0.75rem; color: var(--text-gray); margin-top: 0.5rem; text-decoration: none;">View
+                            History</a>
+                        {% endif %}
+
+                        {% if appt.Status == 'Scheduled' %}
+                        <a href="{{ url_for('cancel_appointment', appointment_id=appt.appointment_id) }}"
+                            style="color: rgba(255, 100, 100, 0.8); font-size: 0.7rem; display: block; margin-top: 0.5rem;"
+                            onclick="return confirm('Cancel this appointment?')">Cancel Appointment</a>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div style="text-align: center; padding: 3rem; color: var(--text-gray);">
+                <p>No appointments scheduled yet.</p>
+            </div>
+            {% endif %}
+
+            {% if session.get('role') == 'patient' %}
+            <div style="margin-top: 2rem; text-align: center;">
+                <a href="{{ url_for('book_appointment') }}" class="btn btn-primary">Book New Appointment</a>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- History/Stats Section -->
+        <div class="glass-panel">
+            <h3 style="margin-bottom: 1.5rem;">Quick Stats</h3>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                {% if session.get('role') == 'patient' %}
+                <a href="{{ url_for('medical_history') }}" class="btn"
+                    style="border: 1px solid var(--secondary-color); color: var(--secondary-color); text-align: center;">View
+                    My History</a>
+                {% endif %}
+                <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                    <small style="color: var(--text-gray); display: block; margin-bottom: 0.2rem;">Total Visits</small>
+                    <span style="font-size: 1.5rem; font-weight: 600;">{{ appointments|length }}</span>
+                </div>
+                <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                    <small style="color: var(--text-gray); display: block; margin-bottom: 0.2rem;">Pending
+                        Reports</small>
+                    <span style="font-size: 1.5rem; font-weight: 600;">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

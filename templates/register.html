@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="auth-wrapper fade-in">
+    <div class="glass-panel auth-card">
+        <h2 style="margin-bottom: 2rem; text-align: center; color: var(--secondary-color);">Create Account</h2>
+        <form action="{{ url_for('register') }}" method="POST">
+            <div class="form-group">
+                <label>I am a...</label>
+                <select name="role" class="form-input" id="role-select" onchange="toggleSpecialization()" required>
+                    <option value="patient">Patient</option>
+                    <option value="doctor">Doctor</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" name="name" class="form-input" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" class="form-input" placeholder="john@example.com" required>
+            </div>
+            <div id="specialization-group" class="form-group" style="display: none;">
+                <label>Specialization (Doctors Only)</label>
+                <input type="text" name="specialization" class="form-input" placeholder="e.g. Cardiology">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" class="form-input" placeholder="••••••••" required>
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" name="phone" class="form-input" placeholder="+1 234 567 8900" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Create Account</button>
+        </form>
+
+        <script>
+            function toggleSpecialization() {
+                const role = document.getElementById('role-select').value;
+                const group = document.getElementById('specialization-group');
+                group.style.display = role === 'doctor' ? 'block' : 'none';
+                group.querySelector('input').required = role === 'doctor';
+            }
+        </script>
+        <p style="text-align: center; margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-gray);">
+            Already have an account? <a href="{{ url_for('login') }}" style="color: var(--secondary-color);">Login
+                here</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

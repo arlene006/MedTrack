@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="fade-in">
+    <div class="glass-panel" style="max-width: 800px; margin: 0 auto;">
+        <h2 style="margin-bottom: 1rem; color: var(--secondary-color);">Submit Diagnosis</h2>
+        <p style="color: var(--text-gray); margin-bottom: 2rem;">
+            Appointment for <strong>{{ appointment.PatientName }}</strong> on {{ appointment.Date }}
+        </p>
+
+        <form action="{{ url_for('submit_diagnosis', appointment_id=appointment.appointment_id) }}" method="POST">
+            <div class="form-group">
+                <label>Diagnosis Title</label>
+                <input type="text" name="title" class="form-input" placeholder="e.g. Common Cold, Hypertension"
+                    required>
+            </div>
+
+            <div class="form-group">
+                <label>Detailed Observations & Symptoms</label>
+                <textarea name="observations" class="form-input" rows="5"
+                    placeholder="Enter patient symptoms and clinical findings..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Prescription & Treatment Plan</label>
+                <textarea name="treatment" class="form-input" rows="5"
+                    placeholder="Medications, dosage, and follow-up instructions..." required></textarea>
+            </div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button type="submit" class="btn btn-primary" style="flex: 2;">Submit Report</button>
+                <a href="{{ url_for('dashboard') }}" class="btn"
+                    style="flex: 1; border: 1px solid var(--glass-border); text-align: center;">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
