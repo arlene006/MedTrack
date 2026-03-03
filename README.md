@@ -51,8 +51,5 @@ MedTrack is a high-performance healthcare management platform built on a serverl
 - Deploy on **AWS EC2** using the provided `medtrack.service` and `medtrack.nginx.conf` files.
 - Ensure the EC2 instance is attached to the `flaskdynamodbsns` IAM role for secure database access.
 
-## 👥 Contributors
-- **Ravi Teja** - *Lead Developer & Cloud Architect*
-
 ---
 © 2026 MedTrack Healthcare Cloud.
