@@ -75,8 +75,14 @@ MedTrack is a high-performance healthcare management platform built on a serverl
 - Ensure the EC2 instance is attached to the `flaskdynamodbsns` IAM role for secure database access.
 
 ## 👥 Contributors
-- **Arlene** - *Lead Developer & Cloud Architect*
-- **Ravi Teja** - *Original Cloud Contributor*
+
+### Team MedTrack
+| Name | Role | Email |
+| :--- | :--- | :--- |
+| **Arlene Kanattu Regi** | Team Lead | [arleneregi006@gmail.com](mailto:arleneregi006@gmail.com) |
+| **Charan** | Member | [cscharan1542005@gmail.com](mailto:cscharan1542005@gmail.com) |
+| **Grahith G Rao** | Member | [grahithraoaj@gmail.com](mailto:grahithraoaj@gmail.com) |
+| **Riya Mathew** | Member | [riyamathew182@gmail.com](mailto:riyamathew182@gmail.com) |
 
 ---
 © 2026 MedTrack Healthcare Cloud.
